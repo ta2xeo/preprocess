@@ -63,7 +63,7 @@ describe('hidden by default comment blocks shall be preprocessed', function () {
     });
 
     it('and process @if and exec nested @extend', function () {
-      input = "a<!-- @if NODE_ENV=='dev' !> <!-- @foreach $var in ARR !>$var<!-- @endfor !> <!-- @endif -->c";
+      input = "a<!-- @if NODE_ENV=='dev' !> <!-- @foreach $var in ARR !><!--@echo $var--><!-- @endfor !> <!-- @endif -->c";
       pp.preprocess(input, {NODE_ENV: 'dev', ARR: "['b', 'c']"}, 'html').should.equal("abcc");
     });
   });
@@ -116,7 +116,7 @@ describe('hidden by default comment blocks shall be preprocessed', function () {
     });
 
     it('and process @if and exec nested @extend', function () {
-      input = "a/* @if NODE_ENV=='dev' ** /* @foreach $var in ARR **$var/* @endfor ** /* @endif */c";
+      input = "a/* @if NODE_ENV=='dev' ** /* @foreach $var in ARR **/* @echo $var ** /* @endfor ** /* @endif */c";
       pp.preprocess(input, {NODE_ENV: 'dev', ARR: "['b', 'c']"}, 'js').should.equal("abcc");
     });
   });
